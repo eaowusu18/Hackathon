@@ -1,0 +1,423 @@
+<html>
+
+	<style>
+		body {
+			
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;		
+            background-image:linear-gradient(to right, rgba(255,0,0,0), rgb(241, 122, 122));
+		}
+    
+	</style>
+
+<head>
+    <script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js" ></script>
+    <script src="https://cdn.anychart.com/themes/2.0.0/wines.min.js" type="text/javascript"></script>
+
+    <style>
+        .center {
+          margin: auto;
+          width: 60%;
+          border: 3px solid transparent;
+          padding: 10px;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+
+<h2>Meal Generator</h2>
+
+<button type="button" onclick= enableInput()> Click me to input your meal.</button>
+<br><br>
+<!--
+<input type="text" id = "meal" placeholder="Type something...">
+<button type="button" onclick=getInputValue()>OK</button>
+-->
+
+<br><br>
+
+<form>
+    <input class="allFoods" type="checkbox" id="food1" name="food" value="Hamburger">
+    <label for="food1"> Hamburger</label><br>
+    
+    <input class="allFoods" type="checkbox" id="food2" name="food" value="Icecream">
+    <label for="food2"> Icecream</label><br>
+    
+    <input class="allFoods" type="checkbox" id="food3" name="food" value="Chicken Nuggets">
+    <label for="food3"> Chicken Nuggets</label><br>
+
+    <input class="allFoods" type="checkbox" id="food4" name="food" value="Canned Peaches">
+    <label for="food4"> Canned Peaches</label><br>
+
+    <input class="allFoods" type="checkbox" id="food5" name="food" value="Canned Beans">
+    <label for="food5"> Canned Beans</label><br>
+
+    <input class="allFoods" type="checkbox" id="food6" name="food" value="Pizza">
+    <label for="food6"> Pizza</label><br>
+    
+    <input class="allFoods" type="checkbox" id="food7" name="food" value="Pasta">
+    <label for="food7"> Pasta</label><br>
+    
+    <input class="allFoods" type="checkbox" id="food8" name="food" value="Steak">
+    <label for="food8"> Steak</label><br>
+
+    <input class="allFoods" type="checkbox" id="food9" name="food" value="Taco">
+    <label for="food9"> Taco</label><br>
+    
+    <input class="allFoods" type="checkbox" id="food10" name="food" value="Sushi">
+    <label for="food10"> Spicy Tuna Sushi Roll</label><br><br>
+
+    <button type="button" onclick=getInputValue()>OK</button>
+  </form>
+
+<script>
+    const foods = ["food1", "food2", "food3","food4", "food5", "food6","food7", "food8", "food9","food10"];
+    for (let i = 0; i < foods.length; i++) {
+        document.getElementById(foods[i]).disabled = true;
+    }
+    
+    
+</script>
+
+<script>
+    function enableInput(){
+        const foods = ["food1", "food2", "food3","food4", "food5", "food6","food7", "food8", "food9","food10"];
+        for (let i = 0; i < foods.length; i++) {
+            document.getElementById(foods[i]).disabled = false;
+        }
+    }
+</script>
+
+
+<p id="ok1"></p>
+<p id="ok2"></p>
+<p id="ok3"></p>
+<p id="ok4"></p>
+<p id="ok5"></p>
+<p id="ok6"></p>
+<p id="ok7"></p>
+<p id="ok8"></p>
+<p id="ok9"></p>
+<p id="ok10"></p>
+
+<p id="savings"></p>
+
+<div class="center" id="container1" style="width: 50%; height: 50%"></div>
+<div class="center" id="container2" style="width: 50%; height: 50%"></div>
+<div class="center" id="container3" style="width: 50%; height: 50%"></div>
+<div class="center" id="container4" style="width: 50%; height: 50%"></div>
+<div class="center" id="container5" style="width: 50%; height: 50%"></div>
+<div class="center" id="container6" style="width: 50%; height: 50%"></div>
+
+
+
+<script>
+
+    function getInputValue(){
+
+
+    anychart.onDocumentReady(function() {
+        anychart.theme(anychart.themes.wines);
+
+        const recommend = [2000, 50, 98, 275, 300, 2300];
+        const Hamburger = [554, 20, 37, 29, 56,1497];
+        const icecream = [137, 2.3, 7, 115, 29, 53];
+        const chickenNuggets = [59, 3.1, 4, 2.8, 9, 111];
+        const CannedPeaches =[360, .69, .19, 19, 0, 420];
+        const CannedBeans =[279, 3.1, 0.5, 27, 0, 538];
+        const Pizza=[285, 12, 10, 36, 18, 640];
+        const Pasta=[75, 2.9, 0.6, 14, 19, 3];
+        const Steak=[577, 20.6, 44.3, 100, 196, 50.2];
+        const Taco =[356, 6, 9, 14, 19, 274];
+        const Sushi=[340, 13, 2, 54, 270, 340];
+
+        var totalCalories = 0;
+        var totalProtien = 0;
+        var totalFat = 0;
+        var totalCarbo = 0;
+        var totalCholesterol = 0;
+        var totalSodium = 0;
+
+        const checkboxes = document.querySelectorAll('input[name="food"]:checked');
+        let selected = [];
+        checkboxes.forEach((checkbox) => {
+            selected.push(checkbox.value);
+        });
+
+        
+
+        const p = ["ok1", "ok2", "ok3","ok4","ok5","ok6","ok7","ok8","ok9","ok10"];
+        for (i = 0; i < selected.length; i++){
+            document.getElementById(p[i]).innerHTML = selected[i];
+
+            if(selected[i]=="Hamburger"){
+                totalCalories = totalCalories + Hamburger[0];
+                totalProtien = totalProtien + Hamburger[1];
+                totalFat = totalFat + Hamburger[2];
+                totalCarbo = totalCarbo + Hamburger[3];
+                totalCholesterol = totalCholesterol + Hamburger[4];
+                totalSodium = totalSodium + Hamburger[5];
+            }
+
+            if(selected[i]=="Icecream"){
+                totalCalories = totalCalories + icecream[0];
+                totalProtien = totalProtien + icecream[1];
+                totalFat = totalFat + icecream[2];
+                totalCarbo = totalCarbo + icecream[3];
+                totalCholesterol = totalCholesterol + icecream[4];
+                totalSodium = totalSodium + icecream[5];
+
+            }
+
+            if(selected[i]=="Chicken Nuggets"){
+                totalCalories = totalCalories + chickenNuggets[0];
+                totalProtien = totalProtien + chickenNuggets[1];
+                totalFat = totalFat + chickenNuggets[2];
+                totalCarbo = totalCarbo + chickenNuggets[3];
+                totalCholesterol = totalCholesterol + chickenNuggets[4];
+                totalSodium = totalSodium + chickenNuggets[5];
+
+            }
+
+            if(selected[i]=="Canned Peaches"){
+                totalCalories = totalCalories + CannedPeaches[0];
+                totalProtien = totalProtien + CannedPeaches[1];
+                totalFat = totalFat + CannedPeaches[2];
+                totalCarbo = totalCarbo + CannedPeaches[3];
+                totalCholesterol = totalCholesterol + CannedPeaches[4];
+                totalSodium = totalSodium + CannedPeaches[5];
+            }
+
+            if(selected[i]=="Canned Beans"){
+                totalCalories = totalCalories + CannedBeans[0];
+                totalProtien = totalProtien + CannedBeans[1];
+                totalFat = totalFat + CannedBeans[2];
+                totalCarbo = totalCarbo + CannedBeans[3];
+                totalCholesterol = totalCholesterol + CannedBeans[4];
+                totalSodium = totalSodium + CannedBeans[5];
+
+            }
+
+            if(selected[i]=="Pizza"){
+                totalCalories = totalCalories + Pizza[0];
+                totalProtien = totalProtien + Pizza[1];
+                totalFat = totalFat + Pizza[2];
+                totalCarbo = totalCarbo + Pizza[3];
+                totalCholesterol = totalCholesterol + Pizza[4];
+                totalSodium = totalSodium + Pizza[5];
+
+            }
+
+            if(selected[i]=="Pasta"){
+                totalCalories = totalCalories + Pasta[0];
+                totalProtien = totalProtien + Pasta[1];
+                totalFat = totalFat + Pasta[2];
+                totalCarbo = totalCarbo + Pasta[3];
+                totalCholesterol = totalCholesterol + Pasta[4];
+                totalSodium = totalSodium + Pasta[5];
+            }
+
+            if(selected[i]=="Steak"){
+                totalCalories = totalCalories + Steak[0];
+                totalProtien = totalProtien + Steak[1];
+                totalFat = totalFat + Steak[2];
+                totalCarbo = totalCarbo + Steak[3];
+                totalCholesterol = totalCholesterol + Steak[4];
+                totalSodium = totalSodium + Steak[5];
+
+            }
+
+            if(selected[i]=="Taco"){
+                totalCalories = totalCalories + Taco[0];
+                totalProtien = totalProtien + Taco[1];
+                totalFat = totalFat + Taco[2];
+                totalCarbo = totalCarbo + Taco[3];
+                totalCholesterol = totalCholesterol + Taco[4];
+                totalSodium = totalSodium + Taco[5];
+
+            }
+
+            if(selected[i]=="Sushi"){
+                totalCalories = totalCalories + Sushi[0];
+                totalProtien = totalProtien + Sushi[1];
+                totalFat = totalFat + Sushi[2];
+                totalCarbo = totalCarbo + Sushi[3];
+                totalCholesterol = totalCholesterol + Sushi[4];
+                totalSodium = totalSodium + Sushi[5];
+
+            }
+
+        }
+
+        
+        var goal1=false;
+        var goal2=false;
+        var goal3=false;
+        var goal4=false;
+        var goal5=false;
+        var goal6=false;
+
+        var discount = 0;
+
+        if (totalCalories>=recommend[0]*.95 && totalCalories<=recommend[0]*1.05){
+            goal1=true;
+            if (totalProtien>=recommend[1]*.95 && totalProtien<=recommend[1]*1.05){
+                goal2=true;
+                if (totalFat>=recommend[2]*.95 && totalFat<=recommend[2]*1.05){
+                    goal3=true;
+                    if (totalCarbo>=recommend[3]*.95 && totalCarbo<=recommend[3]*1.05){
+                        goal4=true;
+                        if (totalCholesterol>=recommend[4]*.95 && totalCholesterol<=recommend[4]*1.05){
+                            goal5=true;
+                            if (totalSodium>=recommend[5]*.95 && totalSodium<=recommend[5]*1.05){
+                                goal6=true;
+                                discount = 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+
+        if (totalCalories>=recommend[0]*.97 && totalCalories<=recommend[0]*1.03){
+            goal1=true;
+            if (totalProtien>=recommend[1]*.97 && totalProtien<=recommend[1]*1.03){
+                goal2=true;
+                if (totalFat>=recommend[2]*.97 && totalFat<=recommend[2]*1.03){
+                    goal3=true;
+                    if (totalCarbo>=recommend[3]*.97 && totalCarbo<=recommend[3]*1.03){
+                        goal4=true;
+                        if (totalCholesterol>=recommend[4]*.97 && totalCholesterol<=recommend[4]*1.03){
+                            goal5=true;
+                            if (totalSodium>=recommend[5]*.97 && totalSodium<=recommend[5]*1.03){
+                                goal6=true;
+                                discount = 3;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (totalCalories>=recommend[0]*.99 && totalCalories<=recommend[0]*1.01){
+            goal1=true;
+            if (totalProtien>=recommend[1]*.99 && totalProtien<=recommend[1]*1.01){
+                goal2=true;
+                if (totalFat>=recommend[2]*.99 && totalFat<=recommend[2]*1.01){
+                    goal3=true;
+                    if (totalCarbo>=recommend[3]*.99 && totalCarbo<=recommend[3]*1.01){
+                        goal4=true;
+                        if (totalCholesterol>=recommend[4]*.99 && totalCholesterol<=recommend[4]*1.01){
+                            goal5=true;
+                            if (totalSodium>=recommend[5]*.99 && totalSodium<=recommend[5]*1.01){
+                                goal6=true;
+                                discount = 5;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (goal1==true && goal2==true && goal3==true && goal4==true && goal5==true && goal6==true){
+            document.getElementById("savings").innerHTML = "Congrats! You have achieved "+discount+" % discount on your premium!";
+        }
+        else{
+            document.getElementById("savings").innerHTML = "Sorry! You have not received any discount :(";
+        }
+
+
+        var data1 = {
+        header: ["in kCal", "in kCal"],
+        rows: [
+        ["Recommended", recommend[0]],
+        ["Calories in your meal", totalCalories]
+        ]}
+
+        var data2 = {
+        header: ["in g", "in g"],
+        rows: [
+        ["Recommended", recommend[1]],
+        ["Protien in your meal", totalProtien]
+        ]}
+
+        var data3 = {
+        header: ["in g", "in g"],
+        rows: [
+        ["Recommended", recommend[2]],
+        ["Total Fat in your meal", totalFat]
+        ]}
+
+        var data4 = {
+        header: ["in g", "in g"],
+        rows: [
+        ["Recommended", recommend[3]],
+        ["Total Carbohydrate in your meal", totalCarbo]
+        ]}
+
+        var data5 = {
+        header: ["in mg", "in mg"],
+        rows: [
+        ["Recommended", recommend[4]],
+        ["Cholesterol in your meal", totalCholesterol]
+        ]}
+
+        var data6 = {
+        header: ["in mg", "in mg"],
+        rows: [
+        ["Recommended", recommend[5]],
+        ["Sodium in your meal", totalSodium]
+        ]}
+        
+        var chart1 = anychart.column();
+        chart1.data(data1);
+        chart1.title("Calories");
+        chart1.container('container1');
+        chart1.draw();
+
+        var chart2 = anychart.column();
+        chart2.data(data2);
+        chart2.title("Protien");
+        chart2.container('container2');
+        chart2.draw();
+
+        var chart3 = anychart.column();
+        chart3.data(data3);
+        chart3.title("Total fat");
+        chart3.container('container3');
+        chart3.draw();
+
+        var chart4 = anychart.column();
+        chart4.data(data4);
+        chart4.title("Total Carbohydrate");
+        chart4.container('container4');
+        chart4.draw();
+
+        var chart5 = anychart.column();
+        chart5.data(data5);
+        chart5.title("Cholesterol");
+        chart5.container('container5');
+        chart5.draw();
+
+        var chart6 = anychart.column();
+        chart6.data(data6);
+        chart6.title("Sodium");
+        chart6.container('container6');
+        chart6.draw();
+
+
+        
+        
+    });
+    }
+    </script>
+
+</body>
+</html> 
