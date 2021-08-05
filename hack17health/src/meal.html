@@ -16,12 +16,83 @@
     <script src="https://cdn.anychart.com/themes/2.0.0/wines.min.js" type="text/javascript"></script>
 
     <style>
+        h2{
+			text-align:center;
+			font-size: 60px;
+			color: black;
+			border: 1px solid black;
+            margin-bottom: 5px;
+		}
         .center {
           margin: auto;
           width: 60%;
           border: 3px solid transparent;
           padding: 10px;
         }
+
+        .allFoods{
+          margin: auto;
+
+          border: 3px solid transparent;
+          padding: 10px;
+        }
+
+        .navbar {     
+        margin: 0;
+        padding:0;
+        width: 100%;
+        font-size: 32 px;
+        font-weight: bold;
+        }
+
+        .navbar:hover {
+            background-color: #242525;
+            color: white;    
+        }
+
+        h3{
+			text-align:center;
+			font-size: 20px;
+			background-color: rgb(233, 215, 215);
+			border-top: 1px solid black;
+			border-bottom: 1px solid black;
+		}
+	
+		h3:hover {
+            background-color: black;
+            color:white;
+        }
+
+        .regular-checkbox {
+	        -webkit-appearance: none;
+	        background-color: #fafafa;
+            border: 1px solid #cacece;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+            padding: 9px;
+            border-radius: 3px;
+            display: inline-block;
+            position: relative;
+        }
+
+        .regular-checkbox:active, .regular-checkbox:checked:active {
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .regular-checkbox:checked {
+            background-color: #e9ecee;
+            border: 1px solid #adb8c0;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+            color: #ffffff;
+        }
+
+        .regular-checkbox:checked:after {
+            content: '\2714';
+            font-size: 14px;
+            position: absolute;
+            top: 0px;
+            left: 3px;
+            color:  #9dff00;
+    }
     </style>
 
 </head>
@@ -31,9 +102,9 @@
 
 
 
-<h2>Meal Generator</h2>
+<h2  width="100%">Moptions</h2>
 
-<button type="button" onclick= enableInput()> Click me to input your meal.</button>
+<button class="navbar" type="button" onclick= enableInput()> Click me to input your meals today.</button>
 <br><br>
 <!--
 <input type="text" id = "meal" placeholder="Type something...">
@@ -43,34 +114,34 @@
 <br><br>
 
 <form>
-    <input class="allFoods" type="checkbox" id="food1" name="food" value="Hamburger">
+    <input class="regular-checkbox" type="checkbox" id="food1" name="food" value="Hamburger">
     <label for="food1"> Hamburger</label><br>
     
-    <input class="allFoods" type="checkbox" id="food2" name="food" value="Icecream">
+    <input class="regular-checkbox" type="checkbox" id="food2" name="food" value="Icecream">
     <label for="food2"> Icecream</label><br>
     
-    <input class="allFoods" type="checkbox" id="food3" name="food" value="Chicken Nuggets">
+    <input class="regular-checkbox" type="checkbox" id="food3" name="food" value="Chicken Nuggets">
     <label for="food3"> Chicken Nuggets</label><br>
 
-    <input class="allFoods" type="checkbox" id="food4" name="food" value="Canned Peaches">
+    <input class="regular-checkbox" type="checkbox" id="food4" name="food" value="Canned Peaches">
     <label for="food4"> Canned Peaches</label><br>
 
-    <input class="allFoods" type="checkbox" id="food5" name="food" value="Canned Beans">
+    <input class="regular-checkbox" type="checkbox" id="food5" name="food" value="Canned Beans">
     <label for="food5"> Canned Beans</label><br>
 
-    <input class="allFoods" type="checkbox" id="food6" name="food" value="Pizza">
+    <input class="regular-checkbox" type="checkbox" id="food6" name="food" value="Pizza">
     <label for="food6"> Pizza</label><br>
     
-    <input class="allFoods" type="checkbox" id="food7" name="food" value="Pasta">
+    <input class="regular-checkbox" type="checkbox" id="food7" name="food" value="Pasta">
     <label for="food7"> Pasta</label><br>
     
-    <input class="allFoods" type="checkbox" id="food8" name="food" value="Steak">
+    <input class="regular-checkbox" type="checkbox" id="food8" name="food" value="Steak">
     <label for="food8"> Steak</label><br>
 
-    <input class="allFoods" type="checkbox" id="food9" name="food" value="Taco">
+    <input class="regular-checkbox" type="checkbox" id="food9" name="food" value="Taco">
     <label for="food9"> Taco</label><br>
     
-    <input class="allFoods" type="checkbox" id="food10" name="food" value="Sushi">
+    <input class="regular-checkbox" type="checkbox" id="food10" name="food" value="Sushi">
     <label for="food10"> Spicy Tuna Sushi Roll</label><br><br>
 
     <button type="button" onclick=getInputValue()>OK</button>
@@ -106,7 +177,7 @@
 <p id="ok9"></p>
 <p id="ok10"></p>
 
-<p id="savings"></p>
+<h3 id="savings"></h4>
 
 <div class="center" id="container1" style="width: 50%; height: 50%"></div>
 <div class="center" id="container2" style="width: 50%; height: 50%"></div>
